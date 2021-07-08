@@ -1,0 +1,88 @@
+#include "course.h"
+#include "student.h"
+
+Course::Course(const QString& id, const QString& name, int credit, const QString& term, const QString& classroom)
+{
+    setId(id);
+    setName(name);
+    setCredit(credit);
+    setTerm(term);
+    setClassroom(classroom);
+}
+
+void Course::setId(const QString &id)
+{
+    this->id = id;
+}
+
+void Course::setName(const QString &name)
+{
+    this->name = name;
+}
+
+void Course::setCredit(int credit)
+{
+    this->credit = credit;
+}
+
+void Course::setTerm(const QString &term)
+{
+    this->term = term;
+}
+
+void Course::setClassroom(const QString &classroom)
+{
+    this->classroom = classroom;
+}
+
+void Course::addStudent(Student *student, int grade)
+{   
+    if(student_list.contains(student)) student_list.removeOne(student); //判断是否已在列表，考虑是否多余
+    
+    int size = this->student_list.size();
+    if(size == 0) student_list.append(student);
+    for(int i = 0; i < size; ++i){
+        if(grade >= (*student_list[i])[this->id]){            
+            student_list.insert(i,student);
+            break;
+        }
+    }
+    
+    student->addCourse(this->id, grade);   
+}
+
+void Course::delStudent(Student *student)
+{
+    if(!student_list.removeOne(student)) return;
+    student->course_list.remove(this->id);
+}
+
+void Course::updateStudent(Student *student, int grade)
+{
+    addStudent(student, grade);
+}
+
+const QString &Course::getId() const
+{
+    return id;
+}
+
+const QString &Course::getName() const
+{
+    return name;
+}
+
+int Course::getCredit() const
+{
+    return credit;
+}
+
+const QString &Course::getTerm() const
+{
+    return term;
+}
+
+const QString &Course::getClassroom() const
+{
+    return classroom;
+}
