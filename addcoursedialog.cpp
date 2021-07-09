@@ -4,28 +4,24 @@
 #include<QMessageBox>
 #include<QDebug>
 
-AddCourseDialog::AddCourseDialog(Student* student, MainWindow *parent, QString* course_id) :
-    QDialog(parent),
+AddCourseDialog::AddCourseDialog(Student* student, MainWindow *parent, QString* course_id,  QList<QString> *valid_course_list) :
+    QDialog(nullptr),
     ui(new Ui::AddCourseDialog)
 {
     ui->setupUi(this);
     this->course_id = course_id;
     this->student = student;
     this->mainwindow = parent;
+    this->valid_course_list = valid_course_list;
 
     //将课程信息录入combobox，只有未选的课出现在comboBox中
-    QList<QString> course_list =  student->course_list.keys(); //这是课程id
 
-    for(QString& course_name : mainwindow->course_map.keys()){
-        if(!course_list.contains(mainwindow->course_map[course_name])){
-            if(empty) empty = false;
-            ui->course_comboBox->addItem(course_name);
-        }
+    for(QString& course_name : *valid_course_list){
+
+        ui->course_comboBox->addItem(course_name);
     }
 
-    if(empty){
-        QMessageBox::information(mainwindow,"提示","该学生已经没有可添加的课程");
-    }
+
 }
 
 AddCourseDialog::~AddCourseDialog()

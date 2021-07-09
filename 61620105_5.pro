@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     addcoursedialog.cpp \
     addstudentdialog.cpp \
+    changegradedialog.cpp \
     course.cpp \
     courseinfodialog.cpp \
     deldialog.cpp \
@@ -31,6 +32,7 @@ SOURCES += \
 HEADERS += \
     addcoursedialog.h \
     addstudentdialog.h \
+    changegradedialog.h \
     course.h \
     courseinfodialog.h \
     deldialog.h \
@@ -43,6 +45,7 @@ HEADERS += \
 FORMS += \
     addcoursedialog.ui \
     addstudentdialog.ui \
+    changegradedialog.ui \
     courseinfodialog.ui \
     deldialog.ui \
     loginterface.ui \

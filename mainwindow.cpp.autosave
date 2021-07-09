@@ -7,7 +7,6 @@
 #include "updatestudentdialog.h"
 #include "courseinfodialog.h"
 #include "QApplication"
-#include <QStyleFactory>
 
 #include<QDebug>
 #define TABLE_FLAG 33

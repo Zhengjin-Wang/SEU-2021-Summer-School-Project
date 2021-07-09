@@ -37,6 +37,10 @@ void AddStudentDialog::on_pushButton_clicked()
         ui->hint_label->setText("该学生的信息已经录入!");
         return;
     }
+    if(ui->id->text().contains(' ')||ui->name->text().contains(' ')||ui->_class->text().contains(' ')||ui->phone->text().contains(' ')||ui->address->text().contains(' ')){
+        ui->hint_label->setText("输入信息不能带有空格");
+        return;
+    }
 
     mainwindow->addStudent(ui->id->text(),new Student(ui->id->text(),ui->name->text(),ui->_class->text(),ui->phone->text(),ui->birth->date(),ui->address->text()));
     this->close();

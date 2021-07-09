@@ -10,6 +10,11 @@ Course::Course(const QString& id, const QString& name, int credit, const QString
     setClassroom(classroom);
 }
 
+Course::~Course()
+{
+    delete this->course_button;
+}
+
 void Course::setId(const QString &id)
 {
     this->id = id;
@@ -37,12 +42,36 @@ void Course::setClassroom(const QString &classroom)
 
 void Course::addStudent(Student *student)
 {
+    if(student_list.contains(student)) student_list.removeOne(student); //判断是否已在列表，考虑是否多余
+    int size = this->student_list.size();
+    if(size == 0) {
+        student_list.append(student);
+        return;
+    }
+    //grade应当已事先录入
+    int grade = (*student)[this->id];
+    for(int i = 0; i < size; ++i){
+        if(grade >= (*student_list[i])[this->id]){
+            student_list.insert(i,student);
+            return;
+        }
+    }
+    //若排在最后，应当直接append
+    student_list.append(student);
 
 }
 
-void Course::delStudent(Student *student)
+//课程和学生中的选课信息都会被删除
+bool Course::delStudent(Student *student)
 {
+    if(!student_list.removeOne(student)) return false; //已经实现在student_list删除学生并判断是否成功删除
+    student->course_list.remove(this->id);//student的course_list会发生动态变化，不要用foreach
+    return true;
+}
 
+void Course::updateStudent(Student *student)
+{
+    addStudent(student);
 }
 
 const QString &Course::getId() const
@@ -70,22 +99,8 @@ const QString &Course::getClassroom() const
     return classroom;
 }
 
-void Course::sort()
-{
-
+CourseButton::CourseButton(Course* course, QWidget *parent) : QPushButton(parent){
+    this->course = course;
+    this->setText("详情");
 }
 
-void Course::sort(int n)
-{
-
-}
-
-void Course::sort(Student *student)
-{
-
-}
-
-void Course::sort(const QString &student)
-{
-
-}

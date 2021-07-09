@@ -13,12 +13,14 @@ class AddCourseDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit AddCourseDialog(Student *student, MainWindow *parent, QString *course_id);
+    explicit AddCourseDialog(Student *student, MainWindow *parent, QString *course_id,  QList<QString> *valid_course_list);
     ~AddCourseDialog();
 
     Student* student;
     MainWindow* mainwindow;
     QString* course_id;
+    QList<QString> *valid_course_list;
+
     bool empty = true;
 
 private slots:
